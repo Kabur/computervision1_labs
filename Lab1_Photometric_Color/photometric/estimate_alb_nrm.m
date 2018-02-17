@@ -8,10 +8,9 @@ function [ albedo, normal ] = estimate_alb_nrm( image_stack, scriptV, shadow_tri
 %   albedo : the surface albedo
 %   normal : the surface normal
 
-
 [h, w, n] = size(image_stack);
 if nargin == 2
-    shadow_trick = true;
+    shadow_trick = false;
 end
 
 % create arrays for 
@@ -19,30 +18,37 @@ end
 %   normal (3 channels)
 albedo = zeros(h, w, 1);
 normal = zeros(h, w, 3);
-
 % =========================================================================
 % YOUR CODE GOES HERE
 % for each point in the image array
 %   stack image values into a vector i
 %   construct the diagonal matrix scriptI
 %   solve scriptI * scriptV * g = scriptI * i to obtain g for this point
-%   albedo at this point is |g|
+%   albedo at this point is |g
 %   normal at this point is g / |g|
 
 for col = 1:h
     for row = 1:w
-        i = reshape(image_stack(h, w, :), [n, 1]);
+        i = reshape(image_stack(col, row, :), [], 1);
+
         scriptI = diag(i);
-        % mldivide(A, B) solves A*x = B for x
-        
-        % g = mldivide(scriptI * scriptV, scriptI * i);
-        % albedo = abs(g);
-        % normal = g / albedo;        
+        % mldivide(A, 😎 solves A*x = B for x
+        if shadow_trick
+            
+            if sum(scriptI*i > 0) 
+                g = mldivide(scriptI * scriptV, scriptI * i);
+                albedo(col, row) = norm(g);
+                normal(col, row,:) = g ./ albedo(col, row);
+            end
+        else
+            if sum(i > 0) 
+                g = mldivide(scriptV,i);
+                albedo(col, row) = norm(g);
+                normal(col, row,:) = g ./ albedo(col, row);
+            end
+        end
     end
 end
-
-
 % =========================================================================
 
 end
-

@@ -6,11 +6,15 @@ disp('Part 1: Photometric Stereo')
 
 % obtain many images in a fixed view under different illumination
 disp('Loading images...')
-image_dir = './SphereGray5/';   % TODO: get the path of the script
+image_dir = './MonkeyColor/';   % TODO: get the path of the script
 %image_ext = '*.png';
+channel_number = 3
 
-[image_stack, scriptV] = load_syn_images(image_dir);
 [h, w, n] = size(image_stack);
+for i = 1:channel_number
+    [image_stack, scriptV] = load_syn_images(image_dir, i);
+    
+    
 fprintf('Finish loading %d images.\n\n', n);
 
 % compute the surface gradient from the stack of imgs and light source mat
@@ -27,7 +31,7 @@ SE(SE <= threshold) = NaN; % for good visualization
 fprintf('Number of outliers: %d\n\n', sum(sum(SE > threshold)));
 
 %% compute the surface height
-height_map = construct_surface( p, q );
+height_map = construct_surface( p, q, 'row' );
 
 %% Display
 show_results(albedo, normals, SE);
@@ -50,7 +54,7 @@ SE(SE <= threshold) = NaN; % for good visualization
 fprintf('Number of outliers: %d\n\n', sum(sum(SE > threshold)));
 
 %% compute the surface height
-height_map = construct_surface( p, q );
+height_map = construct_surface( p, q, 'row' );
 
 show_results(albedo, normals, SE);
 show_model(albedo, height_map);

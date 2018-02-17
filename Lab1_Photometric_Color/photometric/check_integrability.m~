@@ -14,8 +14,8 @@ q = zeros(size(normals,1),size(normals,2));
 % Compute p and q, where
 % p measures value of df / dx
 % q measures value of df / dy
-p(:,:) = normals(:,:,1) ./ normals(:,:,3);
-q(:,:) = normals(:,:,2) ./ normals(:,:,3);
+        p(i,j) = normals(i,j,1) / normals(i,j,3);
+        q(i,j) = normals(i,j,2) / normals(i,j,3);
 % ========================================================================
 
 
