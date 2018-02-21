@@ -4,7 +4,6 @@ function [output_image] = rgb2normedrgb(input_image)
 [height, width, depth] = size(input_image);
 
 output_image = zeros(height, width, depth);
-% size(R)
 
 for col = 1:width
     for row = 1:height

@@ -14,7 +14,9 @@ converted_image = uint16(zeros(height, width, depth));
 
 for d = 1:depth
 %     val = uint16(reflectance(:, :, d)).*uint16(shade(:, :));
-    converted_image(:, :, d) = reflectance(:, :, d).*shade(:, :);
+%     converted_image(:, :, d) = reflectance(:, :, d).*shade(:, :);
+    converted_image(:, :, d) = uint16(reflectance(:, :, d)).*uint16(shade(:, :));
+
 end
 
 % pls_stahp = false;

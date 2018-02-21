@@ -18,7 +18,5 @@ subplot(1, 4, 4);
 imshow(input_image(:, :, 3));
 title("Blue Channel");
    
-saveas(fig1, "test.png", "png");
-
 end
 

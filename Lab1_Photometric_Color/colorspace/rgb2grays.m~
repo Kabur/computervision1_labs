@@ -25,7 +25,7 @@ end
 % luminosity method
 for col = 1:width
     for row = 1:height
-        luminosity(row, col) = 0.21 * R(row, col) + 0.72 * G(row, col) + 0.07 * B(row, col);
+        luminosity(row, col) = (R(row, col) + G(row, col) + B(row, col)) /3;
     end
 end
 

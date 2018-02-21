@@ -37,7 +37,7 @@ else
     return;
 end
     
-if ~strcmp(colorspace,'gray')
-    visualize(new_image); % fill in this function
+if color
+visualize(new_image); % fill in this function
 
 end
