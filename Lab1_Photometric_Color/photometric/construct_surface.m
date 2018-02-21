@@ -16,6 +16,19 @@ height_map = zeros(h, w);
 
 switch path_type
     case 'column'
+        for i = 2:h
+            height_map(i,1) = height_map(i-1, 1) + q(i, 1);
+        end
+        
+        for i = 1:h
+            for j = 2:w
+        	height_map(i, j) = height_map(i, j-1) + p(i, j);
+            end
+        end
+
+
+                
+                
         % =================================================================
         % YOUR CODE GOES HERE
         % top left corner of height_map is zero
@@ -31,7 +44,19 @@ switch path_type
         % =================================================================
                
     case 'row'
+        for i = 2:w
+            height_map(1,i) = height_map(1, i-1) + p(1, i);
+        end
         
+        for i = 1:w
+            for j = 2:h
+        	height_map(j, i) = height_map(j-1, i) + q(j, i);
+            end
+        end
+
+        
+        
+
         % =================================================================
         % YOUR CODE GOES HERE
         
@@ -39,14 +64,38 @@ switch path_type
         % =================================================================
           
     case 'average'
+        for i = 2:w
+            height_map(1,i) = height_map(1, i-1) + p(1, i);
+        end
         
+        for i = 1:w
+            for j = 2:h
+        	height_map(j, i) = height_map(j-1, i) + q(j, i);
+            end
+        end
+         
+        for i = 2:h
+            height_map(i,1) = height_map(i-1, 1) + q(i, 1);
+        end
+        
+        for i = 1:h
+            for j = 2:w
+        	height_map(i, j) = height_map(i, j-1) + p(i, j);
+            end
+        end
+        for i = 1:h
+            for j = 1:w
+                height_map(i,j) = height_map(i,j) / 2;
+            end
+        end
+       
         % =================================================================
         % YOUR CODE GOES HERE
 
         
         % =================================================================
 end
-
-
+    
 end
+
 
