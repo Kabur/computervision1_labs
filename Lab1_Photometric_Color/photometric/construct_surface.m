@@ -17,12 +17,12 @@ height_map = zeros(h, w);
 switch path_type
     case 'column'
         for i = 2:h
-            height_map(i,1) = height_map(i-1, 1) + p(i, 1);
+            height_map(i,1) = height_map(i-1, 1) + q(i, 1);
         end
         
         for i = 1:h
             for j = 2:w
-        	height_map(i, j) = height_map(i, j-1) + q(i, j);
+        	height_map(i, j) = height_map(i, j-1) + p(i, j);
             end
         end
 
@@ -45,7 +45,7 @@ switch path_type
                
     case 'row'
         for i = 2:w
-            height_map(1,i) = height_map(1, i-1) + p(1, i-1);
+            height_map(1,i) = height_map(1, i-1) + p(1, i);
         end
         
         for i = 1:w
@@ -75,12 +75,12 @@ switch path_type
         end
          
         for i = 2:h
-            height_map(i,1) = height_map(i-1, 1) + p(i, 1);
+            height_map(i,1) = height_map(i-1, 1) + q(i, 1);
         end
         
         for i = 1:h
             for j = 2:w
-        	height_map(i, j) = height_map(i, j-1) + q(i, j);
+        	height_map(i, j) = height_map(i, j-1) + p(i, j);
             end
         end
         for i = 1:h

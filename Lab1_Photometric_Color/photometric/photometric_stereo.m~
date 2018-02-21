@@ -11,10 +11,10 @@ name_extention = '_row_shadow_trick';
 % obtain many images in a fixed view under different illumination
 disp('Loading images...')
 
-%dataset = 'SphereColor';
+dataset = 'SphereColor';
 % dataset = 'MonkeyGray';
 % dataset = 'SphereColor';
- dataset = 'SphereGray5';
+% dataset = 'SphereGray5';
 % dataset = 'SphereGray25';
 
 image_dir = strcat('./photometrics_images/',dataset,'/');   
@@ -59,7 +59,7 @@ show_model(albedo, height_map);
 
 
 %% Face
-[image_stack, scriptV] = load_face_images('./yaleB02/');
+[image_stack, scriptV] = load_face_images('./SphereGray5/');
 [h, w, n] = size(image_stack);
 fprintf('Finish loading %d images.\n\n', n);
 disp('Computing surface albedo and normal map...')
