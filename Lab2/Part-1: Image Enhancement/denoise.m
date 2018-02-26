@@ -1,11 +1,20 @@
 function [ imOut ] = denoise( image, kernel_type, varargin)
-
+image = double(image);
+switch nargin
+    case 3
+        kernel_size = varargin{1};
+    case 4
+        kernel_size = varargin{1};
+        sigma = varargin{2};
+end
 switch kernel_type
     case 'box'
-        fprintf('Not implemented\n')
+        disp(kernel_size);
+        imOut = imboxfilt(image, kernel_size);
     case 'median'
-        fprintf('Not implemented\n')
+        imOut = medfilt2(image, [kernel_size, kernel_size]);
     case 'gaussian'
-        fprintf('Not implemented\n')
+        imOut = image .* gauss2D(sigma, kernel_size);
 end
 end
+

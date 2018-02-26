@@ -1,0 +1,2 @@
+
+psnr = myPSNR(image1_saltpepper.jpg, image1.jpg)
