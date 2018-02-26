@@ -1,18 +1,29 @@
 function imOut = compute_LoG(image, LOG_type)
 
+image = im2double(image);
+% image = im2double(imread('images/image2.jpg'));
+% LOG_type = 1;
+
 switch LOG_type
     case 1
-        %method 1
-        fprintf('Not implemented\n')
+    	image = imfilter(image, gauss2D(0.5, 5));
+    	h = fspecial('laplacian');
+    	imOut = imfilter(image, h);
 
     case 2
-        %method 2
-        fprintf('Not implemented\n')
+    	h = fspecial('log', 5, 0.5);
+    	imOut = imfilter(image, h);
 
     case 3
-        %method 3
-        fprintf('Not implemented\n')
+    	h1 = fspecial('gaussian', 5, 0.5);
+    	h2 = fspecial('gaussian', 5, 2);
 
+    	img1 = imfilter(image, h1);
+    	img2 = imfilter(image, h2);
+
+    	imOut = img1 - img2;
 end
+
+imshow(imOut)
 end
 
