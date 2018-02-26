@@ -1,0 +1,12 @@
+function [ imOut ] = denoise( image, kernel_type, varargin)
+image = double(image)
+switch kernel_type
+    case 'box'
+        imOut = imboxfilt(image, kernel_size)
+    case 'median'
+        imOut = medfilt2(image)
+    case 'gaussian'
+        imOut = image .* gauss2D(sigma, kernel_size)
+end
+end
+outee = denoise ('image1 saltpepper.jpg', 'box', )
