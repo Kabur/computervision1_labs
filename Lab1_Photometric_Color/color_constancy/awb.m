@@ -2,7 +2,7 @@ clear
 clc
 close all
 
-image = imread('awb.jpg');
+image = imread('wave.jpg');
 
 
 fig1 = figure;
