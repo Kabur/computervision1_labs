@@ -20,6 +20,7 @@ for row = 1:height
 	for col = 1:width
 		% I'm using zero padding for edge--of-the-image pixel resolution
 		% this is horrible I know, will make efficient later
+        % also, use close-form
 
 		if row == 1 
 			if col == 1
@@ -50,21 +51,37 @@ for row = 1:height
 			end
         end
         
+%         x-min / max - min(im(:))
         Gx(row, col) = sum(sum(Gx_kernel.*img_window));
         Gy(row, col) = sum(sum(Gy_kernel.*img_window));
         im_mag(row, col) = sqrt(Gx(row, col)^2 + Gy(row, col)^2);
         im_dir(row, col) = atan(Gy(row, col) / Gx(row, col));
     end
 end
+% fig5 = figure;
+% subplot(2, 4, 1)
+% imshow(Gx)
+% subplot(2, 4, 2)
+% imshow(Gy)
+% subplot(2, 4, 3)
+% imshow(im_mag)
+% subplot(2, 4, 4)
+% imshow(im_dir)
 
-figure
-subplot(1, 2, 1)
-imshow(im_mag)
+Gx = my_normalize(Gx);
+Gy = my_normalize(Gy);
+im_mag = my_normalize(im_mag);
+im_dir = my_normalize(im_dir);
 
-subplot(1, 2, 2)
-imshow(im_dir)
+% subplot(2, 4, 5)
+% imshow(Gx)
+% subplot(2, 4, 6)
+% imshow(Gy)
+% subplot(2, 4, 7)
+% imshow(im_mag)
+% subplot(2, 4, 8)
+% imshow(im_dir)
 
 end
-
 
 

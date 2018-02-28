@@ -1,6 +1,6 @@
 function imOut = denoise(image, kernel_type, varargin)
 
-image = im2double(image);
+% image = im2double(image);
 
 switch nargin
     case 3
