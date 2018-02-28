@@ -1,7 +1,7 @@
 %% Hyperparameters
 k        = 2;      % number of clusters in k-means algorithm. By default, 
                    % we consider k to be 2 in foreground-background segmentation task.
-image_id = 'Kobi'; % Identifier to switch between input images.
+image_id = 'Cows'; % Identifier to switch between input images.
                    % Possible ids: 'Kobi',    'Polar', 'Robin-1'
                    %               'Robin-2', 'Cows'
 
@@ -68,11 +68,11 @@ lambdas = 2.^(0:(n-2)) * lambdaMin;
 
 % Define the set of orientations for the Gaussian envelope.
 dTheta      = 2*pi/8;                  % \\ the step size
-orientations = 0:dTheta:(pi/2);       
+orientations = pi/4:dTheta:(pi/2);       
 
 % Define the set of sigmas for the Gaussian envelope. Sigma here defines 
 % the standard deviation, or the spread of the Gaussian. 
-sigmas = [1,2]; 
+    sigmas = [0.05, 1.5]; 
 
 % Now you can create the filterbank. We provide you with a MATLAB struct
 % called gaborFilterBank in which we will hold the filters and their
@@ -133,8 +133,8 @@ fprintf('--------------------------------------\n')
 %            explain what works better and why shortly in the report.
 featureMaps = cell(length(gaborFilterBank),1);
 for jj = 1 : length(gaborFilterBank)
-    real_out = gaborFilterBank(jj).filterPairs(:,:,1); % \\TODO: filter the grayscale input with real part of the Gabor
-    imag_out = gaborFilterBank(jj).filterPairs(:,:,2); % \\TODO: filter the grayscale input with imaginary part of the Gabor
+    real_out = imfilter(img_gray, gaborFilterBank(jj).filterPairs(:,:,1)); % \\TODO: filter the grayscale input with real part of the Gabor
+    imag_out = imfilter(img_gray, gaborFilterBank(jj).filterPairs(:,:,2)); % \\TODO: filter the grayscale input with imaginary part of the Gabor
 
     featureMaps{jj} = cat(3, real_out, imag_out);
     % Visualize the filter responses if you wish.
@@ -185,8 +185,8 @@ features = zeros(numRows, numCols, length(featureMags));
 if smoothingFlag
     % \\TODO:
     %FOR_LOOP
-    for i = 1:size(featureMags)
-        features(:,:,i) = imgaussfilt(featureMags{i})
+    for i = 1:length(featureMags)
+        features(:,:,i) = imgaussfilt(featureMags{i});
     end
         % i)  filter the magnitude response with appropriate Gaussian kernels
         % ii) insert the smoothed image into features(:,:,jj)
@@ -211,7 +211,7 @@ features = reshape(features, numRows * numCols, []);
 % \\ Hint: see http://ufldl.stanford.edu/wiki/index.php/Data_Preprocessing
 %          for more information. \\
 
-features = 3% \\ TODO: i)  Implement standardization on matrix called features. 
+features = zscore(features, 0, 2);% \\ TODO: i)  Implement standardization on matrix called features. 
            %          ii) Return the standardized data matrix.
 
 
@@ -221,7 +221,7 @@ features = 3% \\ TODO: i)  Implement standardization on matrix called features.
 coeff = pca(features);
 feature2DImage = reshape(features*coeff(:,1),numRows,numCols);
 figure(4)
-imshow(feature2DImage,[]), title('Pixel representation projected onto first PC')
+imshow(feature2DImage,[]), title('Pixel representation projected onto first PC');
 
 
 % Apply k-means algorithm to cluster pixels using the data matrix,
@@ -230,7 +230,7 @@ imshow(feature2DImage,[]), title('Pixel representation projected onto first PC')
 % \\ Hint-2: use the parameter k defined in the first section when calling
 %            MATLAB's built-in kmeans function.
 tic
-pixLabels = 3% \\TODO: Return cluster labels per pixel
+pixLabels = kmeans(features, k);% \\TODO: Return cluster labels per pixel
 ctime = toc;
 fprintf('Clustering completed in %.3f seconds.\n', ctime);
 
@@ -253,7 +253,7 @@ BW = repmat(BW,[1 1 3]);
 Aseg1(BW) = img(BW);
 Aseg2(~BW) = img(~BW);
 figure(6)
-imshowpair(Aseg1,Aseg2,'montage')
+imshowpair(Aseg1,Aseg2,'montage');
 
 
 
