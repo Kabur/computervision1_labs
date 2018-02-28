@@ -23,7 +23,7 @@ switch LOG_type
 
     	imOut = img1 - img2;
 end
-imOut = my_normalize(imOut);
-% imshow(imOut)
+% imOut = my_normalize(imOut);
+imshow(imOut)
 end
 
