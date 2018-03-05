@@ -1,5 +1,8 @@
 
-I = imread('sphere1.ppm');
-H, c, r = Harris_corner_detecto('sphere1.ppm');
-plot(c, r, 'ro', 'LineWidth', 2, 'MarkerSize',15)
+I = imread('boi.jpg');
+[H, c, r] = Harris_corner_detector(I);
 imshow(I)
+hold on;
+
+plot(c, r, 'ro', 'LineWidth', 2, 'MarkerSize',15)
+
