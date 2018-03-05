@@ -1,4 +1,4 @@
-function [H, c, r] = Harris_corner_detector(imr)
+function [H, c, r] = harris_corner_detector(imr)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 % imr = imread(imag);
@@ -25,7 +25,5 @@ for i = 2:height - 1
         end
     end
 end
-disp(H)
-disp(r)
-disp(c)
+
 end
