@@ -16,9 +16,9 @@ r = [];
 c = [];
 k = 1;
 H = ((A .* C - B .^ 2) - 0.04 * (A + C) .^ 2);
-for i = 2:height - 1
-    for j = 2: width - 1
-        if ((H(i,j) > threshold) && (H(i,j) > H(i-1,j)) && (H(i,j) > H(i,j-1)) && (H(i,j) > H(i,j+1)) && (H(i,j) > H(i+1, j)) && (H(i,j) > H(i-1,j-1)) && (H(i,j) > H(i+1,j+1)) && (H(i,j) > H(i-1,j+1)) && (H(i,j) > H(i+1,j-1)))
+for j = 2:height - 1
+    for i = 2: width - 1
+        if ((H(j,i) > threshold) && (H(j,i) > H(j-1,i)) && (H(j,i) > H(j,i-1)) && (H(j,i) > H(j,i+1)) && (H(j,i) > H(j+1, i)) && (H(j,i) > H(j-1,i-1)) && (H(j,i) > H(j+1,i+1)) && (H(i,j) > H(i-1,j+1)) && (H(i,j) > H(i+1,j-1)))
             r(k) = i;
             c(k) = j;
             k = k + 1;
