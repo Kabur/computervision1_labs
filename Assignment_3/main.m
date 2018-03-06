@@ -14,13 +14,13 @@
 % window_size = 15;
 % 
 % optical_flow = lucas_kanade(I1, I2, window_size);
-% fig2 = figure;
-% imshow(I2)
-% hold on
-% 
-% center_pos = ceil(window_size/2);
-% [x,y] = meshgrid(center_pos:window_size:width - center_pos, center_pos:window_size:height - center_pos);
-% quiver(x, y, optical_flow(:, :, 1), optical_flow(:, :, 2));
+% % fig2 = figure;
+% % imshow(I2)
+% % hold on
+% % 
+% % center_pos = ceil(window_size/2);
+% % [x,y] = meshgrid(center_pos:window_size:width - center_pos, center_pos:window_size:height - center_pos);
+% % quiver(x, y, optical_flow(:, :, 1), optical_flow(:, :, 2));
 
 % *************** Feature Tracking demo ****************
 imgPath = './test_delete_later/'; 
