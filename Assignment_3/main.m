@@ -39,20 +39,20 @@ center_pos = ceil(window_size/2);
 optical_flow = lucas_kanade(I1, I2, window_size, x, y, 1);
 pause(1);
 
-% THIS GIVES ERRORS, DUNNO WHY
-% I1 = imread('sphere1.ppm');
-% I2 = imread('sphere2.ppm');
-% [height, width] = size(I2);
-% window_size = 15;
-% 
-% center_pos = ceil(window_size/2);
-% [x,y] = meshgrid(center_pos:window_size:width - center_pos, center_pos:window_size:height - center_pos);
-% optical_flow = lucas_kanade(I1, I2, window_size, x, y, 1);
-% pause(1);
+I1 = imread('sphere1.ppm');
+I2 = imread('sphere2.ppm');
+[height, width, depth] = size(I2);
+window_size = 15;
+
+center_pos = ceil(window_size/2);
+[x,y] = meshgrid(center_pos:window_size:width - center_pos, center_pos:window_size:height - center_pos);
+optical_flow = lucas_kanade(I1, I2, window_size, x, y, 1);
+pause(1);
 
 % *************** Feature Tracking demo ****************
 imgPath = './person_toy/'; 
 myFolder = './frames/';
+window_size = 15;
 
 dCell = dir([imgPath '*.jpg']); % pingpong images have .jpeg!!
 
@@ -62,7 +62,7 @@ end
 
 tracking(image_list, window_size, myFolder);
 
-% % *************** Video Construction ****************
+% % % *************** Video Construction ****************
 
 % Make an avi movie from a collection of PNG images in a folder.
 % Specify the folder.

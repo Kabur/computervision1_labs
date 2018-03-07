@@ -4,7 +4,7 @@ if mode == 1
     I1 = im2double(I1);
     I2 = im2double(I2);
 
-    [height, width] = size(I2);
+    [height, width, depth] = size(I2);
 
     row_inc = floor(height / 15);
     col_inc = floor(width / 15);
@@ -60,7 +60,7 @@ if mode == 2
 
         % ignore corner pixels that are too close to the edge of the image
         if row < radius+1 || height - row < radius || col < radius+1 || width - col < radius 
-            fprintf('Skipping a corner too close to the edge: [%i, %i]\n', row, col);
+%             fprintf('Skipping a corner too close to the edge: [%i, %i]\n', row, col);
             continue;
         end
 
