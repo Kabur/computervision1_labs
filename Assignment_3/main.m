@@ -33,7 +33,6 @@ end
 
 tracking(image_list);
 
-
 % % *************** Video demo ****************
 
 % Make an avi movie from a collection of PNG images in a folder.
