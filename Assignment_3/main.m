@@ -1,43 +1,71 @@
 % % *************** Harris Corner Detector demo ****************
-% I = imread('boi.jpg');
-% kernel_size = 3;
-% [H, c, r] = harris_corner_detector(I, kernel_size);
-% figure1 = figure;
-% imshow(I)
-% hold on;
-% plot(c, r, 'ro', 'LineWidth', 2, 'MarkerSize',15)
+I = imread('./person_toy/00000001.jpg');
+kernel_size = 3;
+[H, c, r] = harris_corner_detector(I, kernel_size);
+figure_harris1 = figure;
+imshow(I)
+hold on;
+plot(c, r, 'ro', 'LineWidth', 2, 'MarkerSize',2)
+pause(1);
+
+I = imread('./pingpong/0000.jpeg');
+kernel_size = 3;
+[H, c, r] = harris_corner_detector(I, kernel_size);
+figure_harris2 = figure;
+imshow(I)
+hold on;
+plot(c, r, 'ro', 'LineWidth', 2, 'MarkerSize',2)
+pause(1);
+
+rand_num = randi([1, 360]);
+I = imrotate(imread('./person_toy/00000001.jpg'), rand_num);
+kernel_size = 3;
+[H, c, r] = harris_corner_detector(I, kernel_size);
+figure_harris3 = figure;
+imshow(I)
+hold on;
+plot(c, r, 'ro', 'LineWidth', 2, 'MarkerSize',2)
+pause(1);
 
 % % *************** Lucas Kanade demo ****************
-% currently doesnt work because lucas_kanade was reworked for feature
-% tracking, old version commened out
 
-% I1 = imread('synth1.pgm');
-% I2 = imread('synth2.pgm');
+I1 = imread('synth1.pgm');
+I2 = imread('synth2.pgm');
+[height, width] = size(I2);
+window_size = 15;
+
+center_pos = ceil(window_size/2);
+[x,y] = meshgrid(center_pos:window_size:width - center_pos, center_pos:window_size:height - center_pos);
+optical_flow = lucas_kanade(I1, I2, window_size, x, y, 1);
+pause(1);
+
+% THIS GIVES ERRORS, DUNNO WHY
+% I1 = imread('sphere1.ppm');
+% I2 = imread('sphere2.ppm');
 % [height, width] = size(I2);
-% 
 % window_size = 15;
 % 
-% % center_pos = ceil(window_size/2);
-% % [x,y] = meshgrid(center_pos:window_size:width - center_pos, center_pos:window_size:height - center_pos);
-% optical_flow = lucas_kanade(I1, I2, window_size, x, y);
+% center_pos = ceil(window_size/2);
+% [x,y] = meshgrid(center_pos:window_size:width - center_pos, center_pos:window_size:height - center_pos);
+% optical_flow = lucas_kanade(I1, I2, window_size, x, y, 1);
+% pause(1);
 
 % *************** Feature Tracking demo ****************
 imgPath = './person_toy/'; 
-% imgPath = './test_delete_later/'; 
+myFolder = './frames/';
 
-dCell = dir([imgPath '*.jpg']); %pingpong images have .jpeg!!
+dCell = dir([imgPath '*.jpg']); % pingpong images have .jpeg!!
 
 for d = 1:length(dCell)
     image_list{d} = imread([imgPath dCell(d).name]);
 end
 
-tracking(image_list);
+tracking(image_list, window_size, myFolder);
 
-% % *************** Video demo ****************
+% % *************** Video Construction ****************
 
 % Make an avi movie from a collection of PNG images in a folder.
 % Specify the folder.
-myFolder = './frames';
 if ~isdir(myFolder)
     errorMessage = sprintf('Error: The following folder does not exist:\n%s', myFolder);
     uiwait(warndlg(errorMessage));
