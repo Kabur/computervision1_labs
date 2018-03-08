@@ -13,7 +13,7 @@ end
 
 I = im2double(I);
 [I_x,I_y] = imgradientxy(I);
-threshold = 0.015;
+threshold = 0.025;
 A = imgaussfilt(I_x .^ 2);
 C = imgaussfilt(I_y .^ 2);
 B = imgaussfilt(I_x .* I_y);
