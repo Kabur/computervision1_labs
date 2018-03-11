@@ -1,0 +1,40 @@
+function [best_params] = RANSAC(frames1,frames2,matches,N,R,iter)
+    max_inliers=0;
+    best_params=0;
+    for i = 1:iter
+        % random permuation
+        matches=matches(randperm(size(matches,1)),:);
+        selected_batch = matches(1:N,:);
+        A=[];
+        b=[];
+        % computing matrix A and vector b;
+        for j = 1:size (selected_batch , 1)
+            xy = frames1(1:2,selected_batch (j , 1))'; 
+            b = [b;(frames2(1:2,selected_batch (j , 2)))];
+            xy=[xy 0 0 1 0; 0 0 xy 0 1];
+            A=[A;xy];
+        end
+        % computing x parameters
+        x = pinv(A'*A)*A'*b;
+
+       inliers=0;
+       for j = 1:size(matches,1)
+           xy = frames1(1:2,matches(j,1))';
+           b = frames2(1:2,matches(j,2));
+           A = [xy 0 0 1 0; 0 0 xy 0 1];
+           proj = A*x;
+           if(sqrt(sum((proj - b).^2))<=R)
+               inliers = inliers + 1;
+           end
+       end
+
+       if(inliers>max_inliers)
+           max_inliers = inliers;
+           best_params=x;
+       end
+    end
+%     'max inliers'
+%     max_inliers
+%     'out of'
+    size(matches,1)
+end
