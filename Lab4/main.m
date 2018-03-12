@@ -1,3 +1,5 @@
+run('./VLFEATROOT/toolbox/vl_setup')
+
 % load images
 I1 = im2double((imread('boat1.pgm'))); 
 I2 = im2double((imread('boat2.pgm')));
