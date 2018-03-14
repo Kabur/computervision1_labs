@@ -21,6 +21,7 @@ function [] = imageAlignment(I1,I2,N,R,iter)
 
     % Get matches
     [matches] = (vl_ubcmatch(desc1,desc2))';
+    
     % runing RANSAC
     best_params= ransac(frames1,frames2,matches,6,R,iter);
 
